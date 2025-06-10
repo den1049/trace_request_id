@@ -1,0 +1,43 @@
+# `rubocop --format worst` to display all files with offences
+# `rubocop --format offenses` to display all offences
+
+inherit_mode:
+  merge:
+    - Exclude
+# ----------------------------
+
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  DisabledByDefault: false
+  NewCops: enable
+  TargetRubyVersion: 2.7
+  Exclude:
+    - db/**/*
+    - tmp/**/*
+    - bin/**/*
+    - config/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+    - lib/tasks/**/*.rake
+    - config/routes.rb
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Metrics/MethodLength:
+  CountAsOne: ['hash', 'heredoc']
+
+Metrics/ClassLength:
+  CountAsOne: ['hash', 'heredoc']
+
+RSpec/ExampleLength:
+  CountAsOne: ['hash', 'method_call']
+
+RSpec/NestedGroups:
+  Max: 4
