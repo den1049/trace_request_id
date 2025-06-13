@@ -1,6 +1,8 @@
 # TraceRequestId
 
-A Ruby gem that stores X-Request-Id in thread context and passes it to Sidekiq jobs to trace user journeys. This gem helps maintain request context across different parts of your application, making it easier to track and debug user requests through your system.
+A Ruby gem that stores X-Request-Id in thread context and passes it to Sidekiq jobs to trace user journeys.
+This gem helps maintain request context across different parts of your application, making it easier to track
+and debug user requests through your system.
 
 ## Features
 
@@ -48,63 +50,26 @@ TraceRequestId.clear
 
 The gem provides a Rails middleware that automatically handles request IDs. To use it:
 
-1. Add the middleware to your Rails application configuration:
-
-```ruby
-# config/application.rb or config/environments/*.rb
-config.middleware.insert_after ActionDispatch::RequestId, TraceRequestId::RailsMiddleware
-```
+1. The gem registers Rails middleware automatically using Railtie, inserting it after ActionDispatch::RequestId
 
 The middleware:
 - Extracts the request ID from the Rails request (set by ActionDispatch::RequestId)
 - Stores it in the thread context for the duration of the request
-- Automatically cleans up the thread context after the request completes
+- Cleans up the thread context after the request completes
 
 ### Sidekiq Integration
 
-The gem provides both client and server middleware for Sidekiq to maintain request context across background jobs.
+The gem registers Sidekiq middleware automatically using Railtie.
+The gem provides both client and server middleware to maintain request context across background jobs.
 
 #### Client Middleware
 
-Add the client middleware to both client and server configurations:
-
-```ruby
-# config/initializers/sidekiq.rb
-Sidekiq.configure_client do |config|
-  config.client_middleware do |chain|
-    chain.add TraceRequestId::SidekiqClientMiddleware
-    # ... other client middlewares
-  end
-end
-
-Sidekiq.configure_server do |config|
-  config.client_middleware do |chain|
-    chain.add TraceRequestId::SidekiqClientMiddleware
-    # ... other client middlewares
-  end
-end
-```
-
-The client middleware:
 - Captures the current trace ID from the thread context
 - Stores it in the job payload before saving to Redis
 - Generates a new UUID if no trace ID exists
 
 #### Server Middleware
 
-Add the server middleware to your Sidekiq server configuration:
-
-```ruby
-# config/initializers/sidekiq.rb
-Sidekiq.configure_server do |config|
-  config.server_middleware do |chain|
-    chain.add TraceRequestId::SidekiqServerMiddleware
-    # ... other server middlewares
-  end
-end
-```
-
-The server middleware:
 - Restores the trace ID from the job payload to the worker thread context
 - Automatically cleans up the thread context after the job completes
 

@@ -39,6 +39,5 @@ module DummyApps
     config.logstash.formatter = LogStashLogger::Formatter::JsonLines
     config.logstash.host = 'localhost'
     config.logstash.port = 9251
-    config.middleware.insert_after ActionDispatch::RequestId, TraceRequestId::RailsMiddleware
   end
 end

@@ -16,7 +16,7 @@ class TraceRequestId
 
       yield
     ensure
-      TraceRequestId.id = nil
+      TraceRequestId.clear
     end
   end
 end
