@@ -41,7 +41,7 @@ RSpec.describe 'Api::Status', type: :request do
       end
 
       # rubocop:disable RSpec/MultipleExpectations
-      it 'uses R-Request_Id as trace_id' do
+      it 'uses X-Request_Id as trace_id' do
         expect(test_formatter).to have_received(:format_event).at_least(:once) do |event|
           expect(event['trace_id']).to eq(custom_trace_id)
         end

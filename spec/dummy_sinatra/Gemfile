@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'rackup'
+gem 'rake'
+gem 'require_all'
+gem 'sinatra'
+gem 'trace_request_id', path: '../../..'
+
+group :test do
+  gem 'rack'
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'rspec-uuid'
+end

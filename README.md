@@ -46,11 +46,19 @@ TraceRequestId.id(init: true)
 TraceRequestId.clear
 ```
 
+### Sinatra Integration
+
+```ruby
+class MyApplication < Sinatra::Base
+  use Rack::TraceId
+end
+```
+
 ### Rails Integration
 
-The gem provides a Rails middleware that automatically handles request IDs. To use it:
+The gem provides a Rails middleware that automatically handles request IDs.
 
-1. The gem registers Rails middleware automatically using Railtie, inserting it after ActionDispatch::RequestId
+It registers Rails middleware using Railtie, inserting it after ActionDispatch::RequestId
 
 The middleware:
 - Extracts the request ID from the Rails request (set by ActionDispatch::RequestId)

@@ -3,7 +3,7 @@
 class TraceRequestId
   class Railtie < Rails::Railtie # :nodoc:
     initializer 'trace_request_id.configure_rails_initialization' do |app|
-      app.middleware.insert_after ActionDispatch::RequestId, TraceRequestId::RailsMiddleware
+      app.middleware.insert_after ActionDispatch::RequestId, Rack::TraceId
       register_sidekiq_middleware if defined?(Sidekiq)
     end
 

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require 'securerandom'
-
 require_relative 'trace_request_id/version'
-require_relative 'trace_request_id/rails_middleware' if defined?(Rails)
+require_relative 'rack/trace_id'
 require_relative 'trace_request_id/railtie' if defined?(Rails::Railtie)
 require_relative 'trace_request_id/sidekiq_client_middleware' if defined?(Sidekiq)
 require_relative 'trace_request_id/sidekiq_server_middleware' if defined?(Sidekiq)
