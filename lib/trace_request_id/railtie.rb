@@ -12,6 +12,7 @@ class TraceRequestId
     def register_sidekiq_middleware
       register_sidekiq_client_middleware
       register_sidekiq_server_middleware
+      register_sidekiq_test_middleware if defined?(Sidekiq::Testing)
     end
 
     def register_sidekiq_client_middleware
@@ -32,6 +33,13 @@ class TraceRequestId
           chain.add TraceRequestId::SidekiqServerMiddleware
           chain.add SidekiqLoggerMiddleware
         end
+      end
+    end
+
+    def register_sidekiq_test_middleware
+      # attach Sidekiq middleware to Sidekiq:Testing
+      Sidekiq::Testing.server_middleware do |chain|
+        chain.add TraceRequestId::SidekiqServerMiddleware
       end
     end
   end

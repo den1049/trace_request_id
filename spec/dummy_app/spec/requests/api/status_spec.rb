@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'sidekiq/testing'
-
 class LogStashTestFormatter < LogStashLogger::Formatter::JsonLines
   # rubocop:disable Lint/UselessMethodDefinition
   def format_event(event)
@@ -12,7 +10,6 @@ end
 
 # attach Sidekiq middleware to Sidekiq:Testing
 Sidekiq::Testing.server_middleware do |chain|
-  chain.add TraceRequestId::SidekiqServerMiddleware
   chain.add SidekiqLoggerMiddleware
 end
 
