@@ -5,13 +5,13 @@ require_relative 'lib/trace_request_id/version'
 Gem::Specification.new do |spec|
   spec.name = 'trace_request_id'
   spec.version = TraceRequestId::VERSION
-  spec.authors = ['Your Name']
-  spec.email = ['your.email@example.com']
+  spec.authors = ['Denis']
+  # spec.email = ['info@example.com']
 
   spec.summary = 'A gem to store X-Request-Id in thread context and pass it to Sidekiq jobs'
   spec.description = 'This gem helps track user journey storing X-Request-Id in the thread context
                       and passing it to Sidekiq jobs'
-  spec.homepage = 'https://github.com/yourusername/trace_request_id'
+  spec.homepage = 'https://github.com/den1049/trace_request_id'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
 

@@ -108,11 +108,19 @@ end
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests.
+After checking out the repo, run `bin/setup` to install dependencies.
+Then, to run the tests:
+- rspec --pattern spec/*.rb
+- cd spec/dummy_app
+- rspec
+- cd ../spec/dummy_app_no_sidekiq
+- rspec
+- cd ../spec/dummy_sinatra
+- rspec
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/yourusername/trace_request_id.
+Bug reports and pull requests are welcome on GitHub at https://github.com/den1049/trace_request_id.
 
 ## License
 
