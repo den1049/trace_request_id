@@ -18,7 +18,7 @@ class TraceRequestId
     def register_sidekiq_client_middleware
       Sidekiq.configure_client do |config|
         config.client_middleware do |chain|
-          chain.add TraceRequestId::SidekiqClientMiddleware
+          chain.add SidekiqClientMiddleware
         end
       end
     end
@@ -26,12 +26,11 @@ class TraceRequestId
     def register_sidekiq_server_middleware
       Sidekiq.configure_server do |config|
         config.client_middleware do |chain|
-          chain.add TraceRequestId::SidekiqClientMiddleware
+          chain.add SidekiqClientMiddleware
         end
 
         config.server_middleware do |chain|
-          chain.add TraceRequestId::SidekiqServerMiddleware
-          chain.add SidekiqLoggerMiddleware
+          chain.add SidekiqServerMiddleware
         end
       end
     end
@@ -39,7 +38,7 @@ class TraceRequestId
     def register_sidekiq_test_middleware
       # attach Sidekiq middleware to Sidekiq:Testing
       Sidekiq::Testing.server_middleware do |chain|
-        chain.add TraceRequestId::SidekiqServerMiddleware
+        chain.add SidekiqServerMiddleware
       end
     end
   end
